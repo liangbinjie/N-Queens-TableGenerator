@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table NxN creator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <label for="boardSize">Enter board size:</label>
+    <input type="number" id="boardSize" min="2"> 
+    <button onclick="generateBoard()">Generate Board</button>
+    <div id="board">
+    </div>
+
+    <script>
+        function generateBoard() {
+            // Get the board size from the input field
+            const boardSize = parseInt(document.getElementById('boardSize').value);
+
+            // Get the board container
+            const board = document.getElementById('board');
+
+            // Clear the existing board (if any)
+            board.innerHTML = '';
+
+            for (let row = 0; row < boardSize; row++) {
+                // Create a new row after each iteration
+                const rowDiv = document.createElement('div');
+                rowDiv.className = 'rowDiv';
+                for (let col = 0; col < boardSize; col++) {
+                    // Create a new div element for each square
+                    const square = document.createElement('div');
+
+                    // Assign alternating colors based on row and column indices
+                    if ((row + col) % 2 === 0) {
+                        square.className = 'square_w'; // White square
+                    } else {
+                        square.className = 'square_b'; // Black square
+                    }
+
+                    // Optional: you can add images to some squares, for example, a queen on square (0,0)
+                    if (row === 0 && col === 0) {
+                        const queen = document.createElement('img');
+                        queen.src = 'queen.png';
+                        queen.alt = 'Queen';
+                        queen.setAttribute('draggable', 'true');
+                        square.appendChild(queen);
+                    }
+
+                    // Append each square to the board
+                    rowDiv.appendChild(square);
+                }
+                // Append each row to the board
+                board.appendChild(rowDiv);
+            }
+        }
+    </script>
+</body>
+</html>
