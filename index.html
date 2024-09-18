@@ -39,20 +39,29 @@
                         square.className = 'square_b'; // Black square
                     }
 
-                    // Optional: you can add images to some squares, for example, a queen on square (0,0)
-                    if (row === 0 && col === 0) {
-                        const queen = document.createElement('img');
-                        queen.src = 'queen.png';
-                        queen.alt = 'Queen';
-                        queen.setAttribute('draggable', 'true');
-                        square.appendChild(queen);
-                    }
+                    // Set click event to add queen image
+                    square.addEventListener('click', () => addQueen(square));
 
-                    // Append each square to the board
+                    // Append each square to the row
                     rowDiv.appendChild(square);
                 }
+
                 // Append each row to the board
                 board.appendChild(rowDiv);
+            }
+        }
+
+        // Function to add queen image to a clicked square
+        function addQueen(square) {
+            // Check if the square already contains a piece
+            if (!square.querySelector('img')) {
+                const queen = document.createElement('img');
+                queen.src = 'queen.png';
+                queen.alt = 'Queen';
+                queen.setAttribute('draggable', 'true');
+                square.appendChild(queen); // Add the queen image to the square
+            } else {
+                square.removeChild(square.querySelector('img')); // Remove the queen image
             }
         }
     </script>
